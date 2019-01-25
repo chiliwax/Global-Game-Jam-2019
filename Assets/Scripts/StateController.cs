@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class StateController : MonoBehaviour
 {
-
     public State currentState;
     public Transform eyes;
     public State remainState;
@@ -37,7 +34,7 @@ public class StateController : MonoBehaviour
         if (wayPointList.Count == 0)
             return ;
 
-        if (destPoint >= wayPointList.Count)
+        if (destPoint >= wayPointList.Count - 1)
             destPoint = 0;
         else
             destPoint += 1;
