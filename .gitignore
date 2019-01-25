@@ -35,3 +35,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Scenes/Arthur.unity
+Assets/Scenes/Arthur.unity.meta
+Assets/Sprites/home_tiles.psd
