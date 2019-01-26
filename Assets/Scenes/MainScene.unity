@@ -4358,5 +4358,10 @@ PrefabInstance:
       propertyPath: speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1239846984974982073, guid: 175be9f0d33e22641bd91f5c184469ba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 175be9f0d33e22641bd91f5c184469ba, type: 3}
