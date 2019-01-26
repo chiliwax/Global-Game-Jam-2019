@@ -13,12 +13,15 @@ public class LurkingMaid : MonoBehaviour
     private CircleCollider2D sightRange;
     private Vector3 playerPos;
     private bool playerInRange;
+    private Vector3 oldPos;
+    private Vector3 oldDir;
 
     private void Awake()
     {
         sightRange = GetComponent<CircleCollider2D>() as CircleCollider2D;
         sightRange.isTrigger = true;
         playerInRange = false;
+        oldDir = -transform.up;
     }
 
     private void Update()
@@ -49,20 +52,25 @@ public class LurkingMaid : MonoBehaviour
 
     private void searchPlayer()
     {
-        float angleToPlayer = Vector3.Angle(transform.up * sightMaxDistance, playerPos - transform.position);
+        float angleToPlayer = Vector3.Angle(oldDir * sightMaxDistance, playerPos - transform.position);
+
         //  Is player in sight ?
         if (playerInRange && angleToPlayer < fieldOfView / 2)
         {
             Vector2 toPlayer = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, toPlayer);
-            Debug.DrawRay(transform.position, hits[1].transform.position - transform.position, Color.red);
+            int index = 0;
+            if (hits.Length != 0)
+                while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                    ++index;
+            Debug.DrawRay(transform.position, hits[index].transform.position - transform.position, Color.red);
 
             // Is player uncovered ?
-            if (hits[1].transform.tag == "Player")
+            if (hits[index].transform.tag == "Player")
             {
                 Debug.Log("I see you");
-                hits[1].transform.GetComponent<SpriteRenderer>().color = Color.red;
+                hits[index].transform.GetComponent<SpriteRenderer>().color = Color.red;
                 return ;
             }
         }
@@ -72,14 +80,23 @@ public class LurkingMaid : MonoBehaviour
 
     private void drawSightCone()
     {
+        // Compute direction
+        Vector2 direction = new Vector2(transform.position.x - oldPos.x, transform.position.y - oldPos.y);
+        if (direction.magnitude != 0)
+            direction = direction / direction.magnitude;
+        else
+            direction = oldDir;
+        oldPos = transform.position;
+        oldDir = direction;
+
         // Place points for FOV drawin
         var points = new List<Vector2>();
         Vector3 localPosition = transform.InverseTransformPoint(transform.position);
         points.Add(new Vector2(localPosition.x, localPosition.y));
         for (float i = -fieldOfView / 2; i < fieldOfView / 2; ++i)
         {
-            Vector3 worldAngle = Quaternion.AngleAxis(i, transform.forward) * Vector3.up;
-            Vector3 localAngle = Quaternion.AngleAxis(i, transform.forward) * transform.up;
+            Vector3 worldAngle = Quaternion.AngleAxis(i, transform.forward) * direction;
+            Vector3 localAngle = Quaternion.AngleAxis(i, transform.forward) * direction;//transform.up;
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, localAngle * sightMaxDistance, sightMaxDistance);
             Vector2 point;
