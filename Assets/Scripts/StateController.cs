@@ -67,4 +67,9 @@ public class StateController : MonoBehaviour
     {
         stateTimeElapsed = 0;
     }
+
+    private void OnParticleCollision(GameObject TargetParticle) {
+        Debug.Log("Enter Fx");
+        Debug.Log(TargetParticle.transform.position);
+    }
 }

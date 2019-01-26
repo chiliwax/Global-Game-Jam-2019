@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1239846984974982072}
   - component: {fileID: 1239846984974982073}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3467386367068442496}
   - component: {fileID: 1721725010730184593}
   - component: {fileID: 5087532191895902993}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Maid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
