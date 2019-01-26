@@ -75,7 +75,7 @@ public class LurkingMaid : MonoBehaviour
             }
         }
 
-        player.GetComponent<SpriteRenderer>().color = Color.green;
+        player.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void drawSightCone()
