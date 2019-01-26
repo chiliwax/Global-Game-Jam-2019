@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float lookSphereCastRadius;
     public float searchingTurnSpeed;
     public float searchDuration;
+    [HideInInspector] public GameObject seenBy;
 
     // Start is called before the first frame update
     void Start()
@@ -19,5 +20,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Seen(GameObject maid)
+    {
+        seenBy = maid;
     }
 }
