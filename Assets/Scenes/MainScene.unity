@@ -38247,26 +38247,26 @@ PrefabInstance:
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[0]
-      value: 
+      value:
       objectReference: {fileID: 604179082}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[1]
-      value: 
+      value:
       objectReference: {fileID: 1987130852}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[2]
-      value: 
+      value:
       objectReference: {fileID: 1673316539}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[3]
-      value: 
+      value:
       objectReference: {fileID: 776057265}
     - target: {fileID: 809249198, guid: 175be9f0d33e22641bd91f5c184469ba, type: 3}
       propertyPath: player
-      value: 
+      value:
       objectReference: {fileID: 997624503}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 175be9f0d33e22641bd91f5c184469ba, type: 3}

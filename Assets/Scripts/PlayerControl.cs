@@ -31,9 +31,12 @@ public class PlayerControl : MonoBehaviour
 
     private Estate state = Estate.IDDLE;
 
+    private AudioSource stepSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        stepSound = GetComponent<AudioSource>();
         Stamina = MaxStamina;
         rb = GetComponent<Rigidbody2D>();
         circleDetection = GetComponent<CircleCollider2D>();
@@ -110,12 +113,14 @@ public class PlayerControl : MonoBehaviour
                     walkFX.transform.localScale = new Vector3(0.5f,0.5f,1);
                     Instantiate(walkFX, transform.position, Quaternion.identity, gameObject.transform);
                     circleDetection.radius = 0.53f * 5;
+                    stepSound.Play();
                 break;
                 case (Estate.RUN):
                     if (runFX)
                     runFX.transform.localScale = new Vector3(1,1,1);
                     Instantiate(runFX, transform.position, Quaternion.identity, gameObject.transform);
                     circleDetection.radius = 0.53f * 10;
+                    stepSound.Play();
                 break;
                 default:
                 break;
