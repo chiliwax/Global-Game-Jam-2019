@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public Animator animator = null;
     public GameObject iddleFX = null;
     public GameObject walkFX = null;
     public GameObject runFX = null;
@@ -44,6 +45,20 @@ public class PlayerControl : MonoBehaviour
     {
         float isRunning = Input.GetAxis("Run");
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        ///ANIMATOR
+        if (moveInput.x > 0 )
+            animator.SetInteger("Way", 1);
+        else if (moveInput.x < 0 )
+            animator.SetInteger("Way", 3);
+        else if (moveInput.x == 0 && moveInput.y > 0)
+            animator.SetInteger("Way", 4);
+        else if (moveInput.x == 0 && moveInput.y < 0)
+            animator.SetInteger("Way", 2);
+        else
+            animator.SetInteger("Way", 0);
+        ///
+
 
         ///FX
         FxTimeLeft = Mathf.Clamp(FxTimeLeft + Time.deltaTime, 0, FxGenerationTime);
