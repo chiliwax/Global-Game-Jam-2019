@@ -56,8 +56,8 @@ public class PlayerControl : MonoBehaviour
         //RUNNING
         if (isRunning > 0 && Stamina > 0) {
             state = Estate.RUN;
-            if (Stamina == 40)
-                FxTimeLeft = FxGenerationTime;
+            if (Stamina == 49)
+                FxUpdate();
             moveVelocity = moveInput.normalized * RunSpeed;
             Stamina -= 1;
             if (Stamina == 0) {
