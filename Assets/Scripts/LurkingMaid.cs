@@ -102,7 +102,8 @@ public class LurkingMaid : MonoBehaviour
             Vector2 point;
             int index = 0;
             if (hits.Length != 0)
-                while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                //while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                while (index < hits.Length && hits[index].transform.tag == tag)
                     ++index;
             if (hits.Length > index)
             {
