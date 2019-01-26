@@ -56,6 +56,8 @@ public class PlayerControl : MonoBehaviour
         //RUNNING
         if (isRunning > 0 && Stamina > 0) {
             state = Estate.RUN;
+            if (Stamina == 40)
+                FxTimeLeft = FxGenerationTime;
             moveVelocity = moveInput.normalized * RunSpeed;
             Stamina -= 1;
             if (Stamina == 0) {
@@ -90,14 +92,14 @@ public class PlayerControl : MonoBehaviour
                 break;
                 case (Estate.WALK):
                     if (walkFX)
-                    Instantiate(walkFX, transform.position, Quaternion.identity, gameObject.transform);
                     walkFX.transform.localScale = new Vector3(0.5f,0.5f,1);
+                    Instantiate(walkFX, transform.position, Quaternion.identity, gameObject.transform);
                     circleDetection.radius = 0.53f * 5;
                 break;
                 case (Estate.RUN):
                     if (runFX)
+                    runFX.transform.localScale = new Vector3(1,1,1);
                     Instantiate(runFX, transform.position, Quaternion.identity, gameObject.transform);
-                    walkFX.transform.localScale = new Vector3(1,1,1);
                     circleDetection.radius = 0.53f * 10;
                 break;
                 default:
