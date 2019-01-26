@@ -62,7 +62,7 @@ public class LurkingMaid : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, toPlayer);
             int index = 0;
             if (hits.Length != 0)
-                while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                while (index < hits.Length && hits[index].transform.tag == tag)
                     ++index;
             Debug.DrawRay(transform.position, hits[index].transform.position - transform.position, Color.red);
 
@@ -71,11 +71,12 @@ public class LurkingMaid : MonoBehaviour
             {
                 Debug.Log("I see you");
                 hits[index].transform.GetComponent<SpriteRenderer>().color = Color.red;
+                hits[index].transform.GetComponent<Player>().Seen(gameObject);
                 return ;
             }
         }
-
-        player.GetComponent<SpriteRenderer>().color = Color.white;
+        if (player.GetComponent<Player>().seenBy == gameObject)
+            player.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void drawSightCone()
@@ -102,11 +103,11 @@ public class LurkingMaid : MonoBehaviour
             Vector2 point;
             int index = 0;
             if (hits.Length != 0)
-                while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                while (index < hits.Length && hits[index].transform.tag == tag)
                     ++index;
+ 
             if (hits.Length > index)
             {
-                Debug.Log("OUch: " + hits[index].transform.name);
                 Vector2 toPoint = hits[index].point - (Vector2)transform.position;
                 float distanceToPoint = toPoint.magnitude;
                 Debug.DrawRay(transform.position, localAngle * distanceToPoint, Color.green);
