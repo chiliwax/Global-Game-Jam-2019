@@ -6,110 +6,32 @@ using UnityEngine;
 public class LurkingMaid : MonoBehaviour
 {
     [Range(0.0f, 180.0f)] public float fieldOfView = 70.0f;
-    [Range(0.0f, 10.0f)] public float viewDistance = 5.0f;
+    [Range(0.0f, 10.0f)] public float sightMaxDistance = 5.0f;
 
     [SerializeField] private GameObject player = null;
 
-    private CircleCollider2D cc;
+    private CircleCollider2D sightRange;
     private Vector3 playerPos;
     private bool playerInRange;
 
-    private void Start()
+    private void Awake()
     {
-        cc = GetComponent<CircleCollider2D>() as CircleCollider2D;
+        sightRange = GetComponent<CircleCollider2D>() as CircleCollider2D;
         playerInRange = false;
-
-        // Create Vector2 vertices
-        Vector2[] vertices2D = new Vector2[] {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,0),
-        };
     }
 
     private void Update()
     {
-        cc.radius = viewDistance;
-        Vector3 begFov = Quaternion.AngleAxis(fieldOfView / 2, Vector3.forward) * transform.up;
-        Vector3 endFov = Quaternion.AngleAxis(-fieldOfView / 2, Vector3.forward) * transform.up;
-        Debug.DrawLine(transform.position,  begFov * viewDistance, Color.red);
-        Debug.DrawLine(transform.position, endFov * viewDistance, Color.red);
-        if (playerInRange &&
-            Vector3.Angle(transform.up * viewDistance, playerPos - transform.position) < fieldOfView / 2 )
-        {
-            Vector2 vec = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
-            Vector2 dir = vec / vec.magnitude;
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, vec);
-            Debug.DrawRay(transform.position, hits[1].transform.position - transform.position, Color.red);
-            if (hits[1].transform.tag == "Player")
-            {
-                hits[1].transform.GetComponent<SpriteRenderer>().color = Color.red;
-            }
-            else
-            {
-                Debug.Log("See you not");
-                player.GetComponent<SpriteRenderer>().color = Color.green;
-            }
-        }
-        else
-        {
-            Debug.Log("See you not");
-            player.GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        drawCone(); 
-    }
-    
-    private void drawCone()
-    {
-        var points = new List<Vector2>();
-        for (float i = -fieldOfView / 2; i < fieldOfView / 2; ++i)
-        {
-            Vector3 angle = Quaternion.AngleAxis(i, transform.forward) * Vector3.up;
-            Vector3 angleRay = Quaternion.AngleAxis(i, transform.forward) * transform.up;
-            //Debug.DrawRay(transform.position, angle * viewDistance, Color.green);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, angleRay * viewDistance);
-            Vector2 point;
-            if (hits.Length > 1)
-            {
-                Vector2 vec = hits[1].point - (Vector2)transform.position;
-                float distance = vec.magnitude;
-                Debug.DrawRay(transform.position, angleRay * distance, Color.green);
-                point = (Vector2)angle * distance;// + Vector2.up * .5f;//hits[1].point + Vector2.up * .5f;
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, angleRay * viewDistance, Color.green);
-                point = (Vector2)angle * viewDistance;
-            }
-            points.Add(point);
-        }
-
-        points.Add(new Vector2(transform.position.x, transform.position.y));
-        Vector2[] vertices2D = points.ToArray();
-        Triangulator tr = new Triangulator(vertices2D);
-        int[] indices = tr.Triangulate();
-
-        Vector3[] vertices = new Vector3[vertices2D.Length];
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            vertices[i] = new Vector3(vertices2D[i].x, vertices2D[i].y, 0);
-        }
-
-        Mesh msh = new Mesh();
-        msh.vertices = vertices;
-        msh.triangles = indices;
-        msh.RecalculateNormals();
-        msh.RecalculateBounds();
-
-        MeshFilter filter = GetComponentInChildren<MeshFilter>() as MeshFilter;
-        filter.mesh = msh;
+        sightRange.radius = sightMaxDistance;
+        searchPlayer();
+        drawSightCone(); 
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Debug.Log("found you");
+            Debug.Log("Someone here ?");
             playerPos = other.gameObject.transform.position;
             playerInRange = true;
         }
@@ -119,8 +41,86 @@ public class LurkingMaid : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("where you at little niggaz");
+            Debug.Log("Probably a rat");
             playerInRange = false;
         }
+    }
+
+    private void searchPlayer()
+    {
+        float angleToPlayer = Vector3.Angle(transform.up * sightMaxDistance, playerPos - transform.position);
+
+        //  Is player in sight ?
+        if (playerInRange && angleToPlayer < fieldOfView / 2)
+        {
+            Vector2 toPlayer = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y);
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, toPlayer);
+            Debug.DrawRay(transform.position, hits[1].transform.position - transform.position, Color.red);
+
+            // Is player uncovered ?
+            if (hits[1].transform.tag == "Player")
+            {
+                Debug.Log("I see you");
+                hits[1].transform.GetComponent<SpriteRenderer>().color = Color.red;
+                return ;
+            }
+        }
+
+        player.GetComponent<SpriteRenderer>().color = Color.green;
+    }
+
+    private void drawSightCone()
+    {
+        // Draw FOV in Scene View
+        Vector3 begFOV = Quaternion.AngleAxis(fieldOfView / 2, Vector3.forward) * transform.up;
+        Vector3 endFOV = Quaternion.AngleAxis(-fieldOfView / 2, Vector3.forward) * transform.up;
+        Debug.DrawLine(transform.position, begFOV * sightMaxDistance, Color.red);
+        Debug.DrawLine(transform.position, endFOV * sightMaxDistance, Color.red);
+
+        // Place points for FOV drawin
+        var points = new List<Vector2>();
+        points.Add(new Vector2(transform.position.x, transform.position.y));
+        for (float i = -fieldOfView / 2; i < fieldOfView / 2; ++i)
+        {
+            Vector3 worldAngle = Quaternion.AngleAxis(i, transform.forward) * Vector3.up;
+            Vector3 localAngle = Quaternion.AngleAxis(i, transform.forward) * transform.up;
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, localAngle * sightMaxDistance);
+
+            Vector2 point;
+            if (hits.Length > 1)
+            {
+                Vector2 toPoint = hits[1].point - (Vector2)transform.position;
+                float distanceToPoint = toPoint.magnitude;
+                Debug.DrawRay(transform.position, localAngle * distanceToPoint, Color.green);
+                point = (Vector2)worldAngle * distanceToPoint;
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, localAngle * sightMaxDistance, Color.green);
+                point = (Vector2)worldAngle * sightMaxDistance;
+            }
+            points.Add(point);
+        }
+   
+        // Draw FOV
+        Vector2[] vertices2D = points.ToArray();
+        Vector3[] vertices = new Vector3[vertices2D.Length];
+
+        for (int i = 0; i < vertices.Length; i++)
+            vertices[i] = new Vector3(vertices2D[i].x, vertices2D[i].y, 0);
+
+        Triangulator tr = new Triangulator(vertices2D);
+        int[] indices = tr.Triangulate();
+
+        Mesh msh = new Mesh();
+        msh.vertices = vertices;
+        msh.triangles = indices;
+        msh.RecalculateNormals();
+        msh.RecalculateBounds();
+
+        MeshFilter filter = GetComponentInChildren<MeshFilter>() as MeshFilter;
+        filter.mesh = msh;
     }
 }
