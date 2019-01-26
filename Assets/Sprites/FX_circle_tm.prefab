@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4911753564659502792}
   - component: {fileID: 4911753564659502795}
+  - component: {fileID: 4194480064133022971}
   - component: {fileID: 4911753564659502794}
   m_Layer: 0
   m_Name: FX_circle_tm
@@ -4694,6 +4695,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &4194480064133022971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911753564659502797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a3dc1cb3ac37d4c953f0fa39124d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!199 &4911753564659502794
 ParticleSystemRenderer:
   serializedVersion: 6
