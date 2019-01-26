@@ -17,6 +17,7 @@ public class LurkingMaid : MonoBehaviour
     private void Awake()
     {
         sightRange = GetComponent<CircleCollider2D>() as CircleCollider2D;
+        sightRange.isTrigger = true;
         playerInRange = false;
     }
 
@@ -49,7 +50,6 @@ public class LurkingMaid : MonoBehaviour
     private void searchPlayer()
     {
         float angleToPlayer = Vector3.Angle(transform.up * sightMaxDistance, playerPos - transform.position);
-
         //  Is player in sight ?
         if (playerInRange && angleToPlayer < fieldOfView / 2)
         {
@@ -72,26 +72,25 @@ public class LurkingMaid : MonoBehaviour
 
     private void drawSightCone()
     {
-        // Draw FOV in Scene View
-        Vector3 begFOV = Quaternion.AngleAxis(fieldOfView / 2, Vector3.forward) * transform.up;
-        Vector3 endFOV = Quaternion.AngleAxis(-fieldOfView / 2, Vector3.forward) * transform.up;
-        Debug.DrawLine(transform.position, begFOV * sightMaxDistance, Color.red);
-        Debug.DrawLine(transform.position, endFOV * sightMaxDistance, Color.red);
-
         // Place points for FOV drawin
         var points = new List<Vector2>();
-        points.Add(new Vector2(transform.position.x, transform.position.y));
+        Vector3 localPosition = transform.InverseTransformPoint(transform.position);
+        points.Add(new Vector2(localPosition.x, localPosition.y));
         for (float i = -fieldOfView / 2; i < fieldOfView / 2; ++i)
         {
             Vector3 worldAngle = Quaternion.AngleAxis(i, transform.forward) * Vector3.up;
             Vector3 localAngle = Quaternion.AngleAxis(i, transform.forward) * transform.up;
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, localAngle * sightMaxDistance);
-
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, localAngle * sightMaxDistance, sightMaxDistance);
             Vector2 point;
-            if (hits.Length > 1)
+            int index = 0;
+            if (hits.Length != 0)
+                while (index < hits.Length && hits[index].transform.gameObject == gameObject)
+                    ++index;
+            if (hits.Length > index)
             {
-                Vector2 toPoint = hits[1].point - (Vector2)transform.position;
+                Debug.Log("OUch: " + hits[index].transform.name);
+                Vector2 toPoint = hits[index].point - (Vector2)transform.position;
                 float distanceToPoint = toPoint.magnitude;
                 Debug.DrawRay(transform.position, localAngle * distanceToPoint, Color.green);
                 point = (Vector2)worldAngle * distanceToPoint;
