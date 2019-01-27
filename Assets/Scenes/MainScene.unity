@@ -275,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178774546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.71, y: -4.63, z: -1}
+  m_LocalPosition: {x: 4.78, y: -4.36, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1636291282}
@@ -7978,7 +7978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661006224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.78, y: -4.6, z: -1}
+  m_LocalPosition: {x: 13.78, y: -4.36, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1962551710}
@@ -8299,7 +8299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776057264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.74, y: 2.48, z: -1}
+  m_LocalPosition: {x: -6.99, y: 2.48, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 265735157}
@@ -8934,15 +8934,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6816201919450679364, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+    - target: {fileID: 6816201920125099452, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
-      propertyPath: m_Name
-      value: PatrolWaypoints
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 6816201919450679364, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+    - target: {fileID: 6816201918821570305, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816201918999696777, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6816201919573877556, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
@@ -8958,6 +8963,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816201919201676485, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816201919450679364, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+        type: 3}
+      propertyPath: m_Name
+      value: PatrolWaypoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816201919450679364, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6816201918999696775, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
@@ -8977,7 +8997,7 @@ PrefabInstance:
     - target: {fileID: 6816201920125099451, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.74
+      value: -6.89
       objectReference: {fileID: 0}
     - target: {fileID: 6816201920125099451, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
@@ -9045,26 +9065,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6816201919573877557, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816201919201676485, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816201918999696777, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816201920125099452, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816201918821570305, guid: 23e4c25497c00794bb12fb8cc2e7fcea,
         type: 3}
       propertyPath: m_Layer
       value: 5
@@ -38718,7 +38718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50878490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.74, y: 2.5, z: -1}
+  m_LocalPosition: {x: -6.89, y: 2.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 152194772}
@@ -40773,12 +40773,12 @@ PrefabInstance:
     - target: {fileID: 1239846985767634630, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.94
+      value: -6.29
       objectReference: {fileID: 0}
     - target: {fileID: 1239846985767634630, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.76
+      value: -8.71
       objectReference: {fileID: 0}
     - target: {fileID: 1239846985767634630, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
@@ -40834,22 +40834,22 @@ PrefabInstance:
         type: 3}
       propertyPath: wayPointList.Array.data[0]
       value: 
-      objectReference: {fileID: 1364270110}
+      objectReference: {fileID: 1259532631}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[1]
       value: 
-      objectReference: {fileID: 834383154}
+      objectReference: {fileID: 1169949694}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[2]
       value: 
-      objectReference: {fileID: 1581696450}
+      objectReference: {fileID: 178774547}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: wayPointList.Array.data[3]
       value: 
-      objectReference: {fileID: 379204814}
+      objectReference: {fileID: 661006225}
     - target: {fileID: 1239846985767634629, guid: 175be9f0d33e22641bd91f5c184469ba,
         type: 3}
       propertyPath: player
