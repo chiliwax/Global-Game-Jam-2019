@@ -16,8 +16,11 @@ public class LurkingMaid : MonoBehaviour
     private Vector3 oldPos;
     private Vector3 oldDir;
 
+    private StateController controller;
+
     private void Awake()
     {
+        controller = this.gameObject.GetComponent<StateController>();
         sightRange = GetComponent<CircleCollider2D>() as CircleCollider2D;
         sightRange.isTrigger = true;
         playerInRange = false;
@@ -62,7 +65,7 @@ public class LurkingMaid : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, toPlayer);
             int index = 0;
             if (hits.Length != 0)
-                while (index < hits.Length - 1 && hits[index].transform.tag == tag)
+                while (index < hits.Length - 1   && hits[index].transform.tag == tag)
                     ++index;
             Debug.DrawRay(transform.position, hits[index].transform.position - transform.position, Color.red);
 
