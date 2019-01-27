@@ -20,29 +20,35 @@ public class ChangeStateDoor : MonoBehaviour
         Render.sprite = closed;
     }
 
-void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        toogle = true;
+        if (other.tag == "Player")
+            toogle = true;
     }
-void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
-       toogle = false;
+        if (other.tag == "Player")
+            toogle = false;
     }
 
- void Update()
+    void Update()
     {
         float isAction = Input.GetAxis("Action");
-        if (isAction > 0 && TimeLeft == 0 && toogle) {
-            if (Render.sprite == open) {
+
+        if (isAction > 0 && TimeLeft == 0 && toogle)
+        {
+            if (Render.sprite == open)
+            {
                 Render.sprite = closed;
                 BlockDoor.enabled = true;
-                }
-            else {
+            }
+            else
+            {
                 Render.sprite = open;
                 BlockDoor.enabled = false;
             }
             TimeLeft = cooldown;
-        }    
-        TimeLeft = Mathf.Clamp(TimeLeft - Time.fixedDeltaTime ,0,cooldown);
+        }
+        TimeLeft = Mathf.Clamp(TimeLeft - Time.fixedDeltaTime, 0, cooldown);
     }
 }

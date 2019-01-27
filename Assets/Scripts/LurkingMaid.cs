@@ -62,7 +62,7 @@ public class LurkingMaid : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, toPlayer);
             int index = 0;
             if (hits.Length != 0)
-                while (index < hits.Length && hits[index].transform.tag == tag)
+                while (index < hits.Length - 1 && hits[index].transform.tag == tag)
                     ++index;
             Debug.DrawRay(transform.position, hits[index].transform.position - transform.position, Color.red);
 
