@@ -131,9 +131,11 @@ public class LurkingMaid : MonoBehaviour
         Triangulator tr = new Triangulator(vertices2D);
         int[] indices = tr.Triangulate();
 
-        Mesh msh = new Mesh();
-        msh.vertices = vertices;
-        msh.triangles = indices;
+        Mesh msh = new Mesh
+        {
+            vertices = vertices,
+            triangles = indices
+        };
         msh.RecalculateNormals();
         msh.RecalculateBounds();
 
